@@ -5,10 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+
 function Profile() {
   const [isLoaded, setIsLoaded] = useState(true);
   const [user, setUser] = useState([]);
-  
+
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal)
 
@@ -42,6 +52,16 @@ function Profile() {
       .catch(error => console.log('error',error));
   }, [MySwal, navigate])
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const logout = () =>{
     localStorage.removeItem('token')
     navigate('/')
@@ -51,12 +71,53 @@ function Profile() {
   else{
     return (
       <div>
-        <div>{user.fname}</div>
-        <div>{user.lname}</div>
-        <div>{user.username}</div>
-        <div>{user.email}</div>
-        <img src={user.avatar} alt={user.id} width={100}/>
-        <div><button onClick={logout}>logout</button></div>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static">
+            <Toolbar>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{ mr: 2 }}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Photos
+                </Typography>
+                  <div>
+                    <IconButton
+                      size="large"
+                      aria-label="account of current user"
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                      onClick={handleMenu}
+                      color="inherit"
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                    >
+                      <MenuItem onClick={logout}>Logout</MenuItem>
+                    </Menu>
+                  </div>
+            </Toolbar>
+          </AppBar>
+        </Box> 
       </div>
   )}
 }
