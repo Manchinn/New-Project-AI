@@ -40,8 +40,17 @@ function Navbar() {
             App
             </Typography>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+            <Button color="inherit" onClick={() => navigate('/info')}>
+              Info
+            </Button>
             <Button color="inherit" onClick={() => navigate('/trading-bot')}>
-                Trading Bot
+              Trading Bot
+            </Button>
+            <Button color="inherit" onClick={() => navigate('/commission')}>
+              Commission
+            </Button>
+            <Button color="inherit" onClick={() => navigate('/payment')}>
+              Payment
             </Button>
             </Typography>
             <IconButton size="large" edge="end" color="inherit" aria-label="commission">
