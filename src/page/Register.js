@@ -101,7 +101,7 @@ function Register() {
                   id="fname"
                   label="First Name"
                   autoFocus
-                  value={inputs.fname || ""}   
+                  value={inputs.fname || ""}
                   onChange={handleChange}
                 />
               </Grid>
