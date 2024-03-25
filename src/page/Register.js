@@ -36,12 +36,12 @@ function Register() {
       myHeaders.append("Content-Type", "application/json");
       
       const raw = JSON.stringify({
-        "fname": inputs.fname,
-        "lname": inputs.lname,
-        "username": inputs.username,
-        "password": inputs.password,
+        //"fname": inputs.fname,
+        //"lname": inputs.lname,
+        //"username": inputs.username,
         "email": inputs.email,
-        "avatar": inputs.avatar,
+        "password": inputs.password,
+        "port number": inputs.portNumber,
       });
       
       const requestOptions = {
@@ -92,40 +92,15 @@ function Register() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="fname"
-                  required
-                  fullWidth
-                  id="fname"
-                  label="First Name"
-                  autoFocus
-                  value={inputs.fname || ""}   
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lname"
-                  label="Last Name"
-                  name="lname"
-                  autoComplete="family-name"
-                  value={inputs.lname || ""}   
-                  onChange={handleChange}
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="username"
-                  label="Username"
-                  name="username"
-                  autoComplete="username"
-                  value={inputs.username || ""}   
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={inputs.email || ""}   
                   onChange={handleChange}
                 />
               </Grid>
@@ -146,23 +121,11 @@ function Register() {
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={inputs.email || ""}   
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="avatar"
-                  label="Avatar"
-                  name="avatar"
-                  autoComplete="avatar"
-                  value={inputs.avatar || ""}   
+                  id="port number"
+                  label="port number"
+                  name="port number"
+                  autoComplete="portNumber"
+                  value={inputs.portNumber || ""}   
                   onChange={handleChange}
                 />
               </Grid>
