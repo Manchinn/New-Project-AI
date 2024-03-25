@@ -1,13 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Button, MenuItem, Menu, Box} from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, Button, MenuItem, Menu, Box } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-
 import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const navigate = useNavigate();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {
@@ -18,10 +16,16 @@ function Navbar() {
     setAnchorEl(null);
   };
 
-  const login = () =>{
-    localStorage.removeItem('token')
-    navigate('/login')
-  }
+  const isAuthenticated = !!localStorage.getItem('token'); // Check if a token exists in local storage
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/Home');
+  };
+
+  const handleLogin = () => {
+    navigate('/login');
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -32,7 +36,7 @@ function Navbar() {
             edge="start"
             color="inherit"
             aria-label="menu"
-            onClick={() => navigate('/')} // Navigate to "/" on click
+            onClick={() => navigate('/')}
           >
             <HomeIcon />
           </IconButton>
@@ -53,35 +57,38 @@ function Navbar() {
               Payment
             </Button>
           </Typography>
-          <IconButton size="large" edge="end" color="inherit" aria-label="commission">
           <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleMenu}
-                        color="inherit"
-                      >
-                        <AccountCircle />
-                      </IconButton>
-                      <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                      >
-                        <MenuItem onClick={login}>Login</MenuItem>
-                      </Menu>
+            size="large"
+            edge="end"
+            color="inherit"
+            aria-label="account"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+          >
+            <AccountCircle />
           </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            {isAuthenticated ? (
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            ) : (
+              <MenuItem onClick={handleLogin}>Login</MenuItem>
+            )}
+          </Menu>
         </Toolbar>
       </AppBar>
     </Box>
